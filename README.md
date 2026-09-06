@@ -1,35 +1,49 @@
-# 🌱 DevGrowth
+# 🌱 DevGrowth Tracker
 
-> A personal developer growth tracker built to document and measure my programming journey.
+> A Python-based personal developer growth tracker designed to record, analyze, and visualize my programming journey.
 
-## 🎯 About
+## 📌 About The Project
 
-DevGrowth is a Python-based project that helps track my progress as a Computer Science student and aspiring software developer.
+DevGrowth Tracker is a personal productivity and learning tracker built with Python.
 
-It records my coding practice, learning goals, projects, and technical growth over time.
+It helps track daily coding practice, learning activities, goals, streaks, achievements, and overall developer growth.
 
-## ✨ Planned Features
+The project is designed to turn daily coding activity into measurable progress and encourage consistency throughout the learning journey.
 
-- 🐍 Python learning tracker
-- 💻 Coding practice tracker
-- 🧠 DSA progress tracking
-- 🚀 Project progress
-- 📚 Learning goals
-- 🔥 Coding streak
-- 📊 Developer growth statistics
+## ✨ Features
+
+- 💻 Track daily coding problems
+- ⏱️ Track daily coding hours
+- 📚 Record topics studied
+- 🧠 Record daily learning
+- 📊 View overall developer progress
+- 📈 Generate weekly progress reports
+- 📚 View complete learning history
+- 🎯 Set daily and weekly goals
+- 📊 Track goal completion percentage
+- 🔥 Calculate coding streaks
+- 🏆 Unlock achievements based on progress
+- 📈 Visualize coding progress with graphs
+- 💾 Store data using JSON
 
 ## 🛠️ Tech Stack
 
 - Python
 - JSON
-- Git & GitHub
+- Matplotlib
+- Git
+- GitHub
 
-## 🚧 Project Status
+## 📂 Project Structure
 
-Currently under development.
-
-## 👩‍💻 Author
-
-**Hansika Gehlot**
-
-B.Tech CSE | AI & ML | Aspiring Software Developer
+```text
+DevGrowth/
+│
+├── data/
+│   └── progress.json
+│
+├── src/
+│   └── tracker.py
+│
+├── README.md
+└── requirements.txt

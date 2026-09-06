@@ -1,17 +1,30 @@
 {
-  "developer": "Hansika Gehlot",
-  "current_streak": 0,
-  "total_days": 0,
-  "coding": {
-    "problems_solved": 0,
-    "hours": 0
-  },
-  "learning": {
-    "python": 0,
-    "dsa": 0,
-    "web_development": 0,
-    "machine_learning": 0
-  },
-  "projects_completed": 0,
-  "goals": []
+    "developer": "Hansika Gehlot",
+    "current_streak": 1,
+    "total_days": 1,
+    "coding": {
+        "problems_solved": 2,
+        "hours": 2.5
+    },
+    "learning": {
+        "python": 0,
+        "dsa": 0,
+        "web_development": 0,
+        "machine_learning": 0
+    },
+    "projects_completed": 0,
+    "goals": {
+        "daily_problems": 3,
+        "daily_hours": 2.0,
+        "weekly_problems": 15,
+        "weekly_hours": 10.0
+    },
+    "daily_progress": {
+        "2026-09-06": {
+            "problems": 2,
+            "hours": 2.5,
+            "topic": "Python",
+            "learning": "Learned Python functions and file handling"
+        }
+    }
 }

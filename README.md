@@ -1,14 +1,14 @@
 # 🌱 DevGrowth Tracker
 
-> A Python-based personal developer growth tracker designed to record, analyze, and visualize my programming journey.
+> A Python-based personal developer growth tracker that helps track coding practice, learning progress, goals, streaks, achievements, and performance analytics.
 
 ## 📌 About The Project
 
-DevGrowth Tracker is a personal productivity and learning tracker built with Python.
+**DevGrowth Tracker** is a command-line application built with Python to help students and aspiring developers consistently track their programming journey.
 
-It helps track daily coding practice, learning activities, goals, streaks, achievements, and overall developer growth.
+The application transforms daily coding activities into measurable progress by recording coding problems, study hours, topics learned, goals, streaks, and achievements.
 
-The project is designed to turn daily coding activity into measurable progress and encourage consistency throughout the learning journey.
+It is designed to encourage consistency, self-discipline, and continuous improvement while learning programming and computer science concepts.
 
 ## ✨ Features
 
@@ -19,31 +19,25 @@ The project is designed to turn daily coding activity into measurable progress a
 - 📊 View overall developer progress
 - 📈 Generate weekly progress reports
 - 📚 View complete learning history
-- 🎯 Set daily and weekly goals
+- 🎯 Set daily and weekly coding goals
 - 📊 Track goal completion percentage
 - 🔥 Calculate coding streaks
-- 🏆 Unlock achievements based on progress
-- 📈 Visualize coding progress with graphs
-- 💾 Store data using JSON
+- 🏆 Unlock milestone-based achievements
+- 📈 Visualize progress using graphs
+- 💾 Store progress using JSON
+- 🖥️ Simple command-line interface
 
-## 🛠️ Tech Stack
-
-- Python
-- JSON
-- Matplotlib
-- Git
-- GitHub
-
-## 📂 Project Structure
+## 🎮 Application Menu
 
 ```text
-DevGrowth/
-│
-├── data/
-│   └── progress.json
-│
-├── src/
-│   └── tracker.py
-│
-├── README.md
-└── requirements.txt
+🌱 DevGrowth Tracker
+
+1. Add Today's Progress
+2. View Progress
+3. Weekly Report
+4. Learning History
+5. Set Goals
+6. View Goals
+7. Achievements
+8. Progress Graph
+9. Exit

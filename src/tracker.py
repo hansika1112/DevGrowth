@@ -856,6 +856,24 @@ def daily_motivation():
     print(f"💡 {random.choice(messages)}")
     print("\n💻 Keep coding. Keep growing! 🚀")
 
+def backup_progress():
+    data = load_data()
+
+    daily_progress = data.get("daily_progress", {})
+
+    if not daily_progress:
+        print("\n❌ No progress data available to backup.")
+        return
+
+    backup_file = "data/progress_backup.json"
+
+    with open(backup_file, "w") as file:
+        json.dump(data, file, indent=4)
+
+    print("\n💾 Progress backup created successfully!")
+    print(f"📄 Backup File: {backup_file}")
+    print(f"📊 Records Backed Up: {len(daily_progress)}")
+
 def main():
     while True:
         print("1. Add Today's Progress")
@@ -875,6 +893,7 @@ def main():
         print("15. Progress Graph")
         print("16. Analytics Dashboard")
         print("18. Daily Motivation")
+        print("19. Backup Progress")
         print("17. Exit")
 
         choice = input("Choose an option: ")
@@ -913,6 +932,8 @@ def main():
             analytics_dashboard()
         elif choice == "18":
             daily_motivation()
+        elif choice == "19":
+            backup_progress()
         elif choice == "17":
             print("\n🚀 Keep learning. Keep growing!")
             break

@@ -79,7 +79,51 @@ def add_progress():
     print(f"⏱️ Coding Hours: {hours}")
     print(f"📚 Topic: {topic}")
     print(f"🧠 Learning: {learning}")
+def add_custom_progress():
+    data = load_data()
 
+    print("\n📅 DevGrowth - Add Custom Date Progress")
+
+    selected_date = input("Enter date (YYYY-MM-DD): ")
+
+    try:
+        date.fromisoformat(selected_date)
+    except ValueError:
+        print("❌ Invalid date format. Use YYYY-MM-DD.")
+        return
+
+    problems = int(input("Coding problems solved: "))
+    hours = float(input("Hours spent coding: "))
+    topic = input("Topic studied: ")
+    learning = input("What did you learn?: ")
+
+    data["daily_progress"][selected_date] = {
+        "problems": problems,
+        "hours": hours,
+        "topic": topic,
+        "learning": learning
+    }
+
+    total_problems = 0
+    total_hours = 0
+
+    for progress in data["daily_progress"].values():
+        total_problems += progress["problems"]
+        total_hours += progress["hours"]
+
+    data["coding"]["problems_solved"] = total_problems
+    data["coding"]["hours"] = total_hours
+    data["total_days"] = len(data["daily_progress"])
+    data["current_streak"] = calculate_streak(data["daily_progress"])
+
+    save_data(data)
+
+    print("\n✅ Custom date progress saved!")
+    print(f"📅 Date: {selected_date}")
+    print(f"💻 Problems: {problems}")
+    print(f"⏱️ Coding Hours: {hours}")
+    print(f"📚 Topic: {topic}")
+    print(f"🧠 Learning: {learning}")
 
 def view_progress():
     data = load_data()
@@ -497,43 +541,46 @@ def analytics_dashboard():
 def main():
     while True:
         print("1. Add Today's Progress")
-        print("2. View Progress")
-        print("3. Weekly Report")
-        print("4. Learning History")
-        print("5. Set Goals")
-        print("6. View Goals")
-        print("7. Achievements")
-        print("8. Monthly Report")
-        print("9. Monthly Progress Graph")
-        print("10. Progress Graph")
-        print("11. Analytics Dashboard")
-        print("12. Exit")
+        print("2. Add Custom Date Progress")
+        print("3. View Progress")
+        print("4. Weekly Report")
+        print("5. Learning History")
+        print("6. Set Goals")
+        print("7. View Goals")
+        print("8. Achievements")
+        print("9. Monthly Report")
+        print("10. Monthly Progress Graph")
+        print("11. Progress Graph")
+        print("12. Analytics Dashboard")
+        print("13. Exit")
 
         choice = input("Choose an option: ")
 
         if choice == "1":
             add_progress()
         elif choice == "2":
-            view_progress()
+            add_custom_progress()
         elif choice == "3":
-            weekly_report()
+            view_progress()
         elif choice == "4":
-            learning_history()
+            weekly_report()
         elif choice == "5":
-            set_goals()
+            learning_history()
         elif choice == "6":
-            view_goals()
+            set_goals()
         elif choice == "7":
-            achievements()
+            view_goals()
         elif choice == "8":
-            monthly_report()
+            achievements()
         elif choice == "9":
-            monthly_progress_graph()
+            monthly_report()
         elif choice == "10":
-            progress_graph()
+            monthly_progress_graph()
         elif choice == "11":
-            analytics_dashboard()
+            progress_graph()
         elif choice == "12":
+            analytics_dashboard()
+        elif choice == "13":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:

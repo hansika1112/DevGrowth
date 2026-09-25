@@ -874,6 +874,96 @@ def backup_progress():
     print(f"📄 Backup File: {backup_file}")
     print(f"📊 Records Backed Up: {len(daily_progress)}")
 
+def import_progress():
+    data = load_data()
+
+    file_path = "data/progress_export.csv"
+
+    try:
+        with open(file_path, "r", newline="") as file:
+            reader = csv.DictReader(file)
+
+            required_fields = {
+                "Date",
+                "Problems",
+                "Hours",
+                "Topic",
+                "Learning"
+            }
+
+            if not required_fields.issubset(reader.fieldnames or []):
+                print("\n❌ Invalid CSV format.")
+                return
+
+            rows = list(reader)
+
+    except FileNotFoundError:
+        print("\n❌ CSV file not found.")
+        print(f"📄 Expected file: {file_path}")
+        return
+
+    if not rows:
+        print("\n❌ No progress records found in CSV.")
+        return
+
+    print("\n⚠️ Importing progress will replace current progress data.")
+    confirmation = input("Continue? (yes/no): ").strip().lower()
+
+    if confirmation != "yes":
+        print("❌ Import cancelled.")
+        return
+
+    imported_progress = {}
+
+    for row in rows:
+        selected_date = row["Date"].strip()
+
+        try:
+            date.fromisoformat(selected_date)
+            problems = int(row["Problems"])
+            hours = float(row["Hours"])
+        except (ValueError, TypeError):
+            continue
+
+        if problems < 0 or hours < 0:
+            continue
+
+        topic = row["Topic"].strip()
+        learning = row["Learning"].strip()
+
+        imported_progress[selected_date] = {
+            "problems": problems,
+            "hours": hours,
+            "topic": topic,
+            "learning": learning
+        }
+
+    if not imported_progress:
+        print("\n❌ No valid progress records found.")
+        return
+
+    data["daily_progress"] = imported_progress
+
+    total_problems = 0
+    total_hours = 0
+
+    for progress in imported_progress.values():
+        total_problems += progress["problems"]
+        total_hours += progress["hours"]
+
+    data["coding"]["problems_solved"] = total_problems
+    data["coding"]["hours"] = total_hours
+    data["total_days"] = len(imported_progress)
+    data["current_streak"] = calculate_streak(imported_progress)
+
+    save_data(data)
+
+    print("\n✅ Progress imported successfully!")
+    print(f"📄 File: {file_path}")
+    print(f"📊 Records Imported: {len(imported_progress)}")
+    print(f"💻 Total Problems: {total_problems}")
+    print(f"⏱️ Total Coding Hours: {total_hours}")
+    
 def main():
     while True:
         print("1. Add Today's Progress")
@@ -894,6 +984,7 @@ def main():
         print("16. Analytics Dashboard")
         print("18. Daily Motivation")
         print("19. Backup Progress")
+        print("20. Import Progress")
         print("17. Exit")
 
         choice = input("Choose an option: ")
@@ -934,6 +1025,8 @@ def main():
             daily_motivation()
         elif choice == "19":
             backup_progress()
+        elif choice == "20":
+            import_progress()
         elif choice == "17":
             print("\n🚀 Keep learning. Keep growing!")
             break

@@ -259,6 +259,12 @@ def delete_progress():
 
     selected_date = input("\nEnter date to delete (YYYY-MM-DD): ")
 
+    try:
+        date.fromisoformat(selected_date)
+    except ValueError:
+        print("❌ Invalid date format. Use YYYY-MM-DD.")
+        return
+
     if selected_date not in daily_progress:
         print("❌ No progress found for this date.")
         return
@@ -300,7 +306,6 @@ def delete_progress():
     print(f"📅 Active Days: {len(daily_progress)}")
     print(f"🔥 Current Streak: {data['current_streak']}")
     
-
 def search_progress():
     data = load_data()
 

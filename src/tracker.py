@@ -20,8 +20,16 @@ def calculate_streak(daily_progress):
         return 0
 
     today = date.today()
+    yesterday = today - timedelta(days=1)
+
+    if str(today) in daily_progress:
+        check_date = today
+    elif str(yesterday) in daily_progress:
+        check_date = yesterday
+    else:
+        return 0
+
     streak = 0
-    check_date = today
 
     while str(check_date) in daily_progress:
         streak += 1

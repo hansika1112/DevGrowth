@@ -305,7 +305,7 @@ def delete_progress():
     print(f"⏱️ Total Coding Hours: {total_hours}")
     print(f"📅 Active Days: {len(daily_progress)}")
     print(f"🔥 Current Streak: {data['current_streak']}")
-    
+
 def search_progress():
     data = load_data()
 
@@ -791,14 +791,50 @@ def analytics_dashboard():
         average_problems = 0
         average_hours = 0
 
+    best_day = None
+    best_day_problems = 0
+    topic_count = {}
+
+    for selected_date, progress in daily_progress.items():
+        problems = progress.get("problems", 0)
+        topic = str(progress.get("topic", "")).strip()
+
+        if problems > best_day_problems:
+            best_day_problems = problems
+            best_day = selected_date
+
+        if topic:
+            topic_count[topic] = topic_count.get(topic, 0) + 1
+
+    if topic_count:
+        most_studied_topic = max(topic_count, key=topic_count.get)
+        topic_sessions = topic_count[most_studied_topic]
+    else:
+        most_studied_topic = "N/A"
+        topic_sessions = 0
+
     print("\n📊 DevGrowth Analytics Dashboard")
-    print("===============================")
+    print("================================")
     print(f"💻 Total Problems Solved: {total_problems}")
     print(f"⏱️ Total Coding Hours: {total_hours}")
     print(f"📅 Active Days: {active_days}")
     print(f"🔥 Current Streak: {current_streak}")
     print(f"📈 Average Problems/Day: {average_problems:.1f}")
     print(f"⏰ Average Coding Hours/Day: {average_hours:.1f}")
+
+    print("\n🏆 Best Coding Day")
+    print("------------------")
+
+    if best_day:
+        print(f"📅 Date: {best_day}")
+        print(f"💻 Problems Solved: {best_day_problems}")
+    else:
+        print("No coding data available.")
+
+    print("\n📚 Most Studied Topic")
+    print("---------------------")
+    print(f"📖 Topic: {most_studied_topic}")
+    print(f"🔢 Study Sessions: {topic_sessions}")
 
 def main():
     while True:

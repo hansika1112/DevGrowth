@@ -1,4 +1,5 @@
 import json
+import csv
 import matplotlib.pyplot as plt
 from datetime import date, timedelta
 
@@ -269,8 +270,44 @@ def search_progress():
     if not found:
         print(f"\n❌ No progress found for '{keyword}'.")
 
+def export_progress():
+    data = load_data()
 
-def view_progress():
+    daily_progress = data.get("daily_progress", {})
+
+    if not daily_progress:
+        print("\n❌ No progress data available.")
+        return
+
+    file_path = "data/progress_export.csv"
+
+    with open(file_path, "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow([
+            "Date",
+            "Problems",
+            "Hours",
+            "Topic",
+            "Learning"
+        ])
+
+        for selected_date, progress in sorted(daily_progress.items()):
+            writer.writerow([
+                selected_date,
+                progress["problems"],
+                progress["hours"],
+                progress["topic"],
+                progress["learning"]
+            ])
+
+    print("\n✅ Progress exported successfully!")
+    print(f"📄 File: {file_path}")
+    print(f"📊 Records exported: {len(daily_progress)}")
+
+
+def view_progress():        
+
     data = load_data()
 
     daily_progress = data.get("daily_progress", {})
@@ -690,17 +727,18 @@ def main():
         print("3. Edit Progress")
         print("4. Delete Progress")
         print("5. Search Progress")
-        print("6. View Progress")
-        print("7. Weekly Report")
-        print("8. Learning History")
-        print("9. Set Goals")
-        print("10. View Goals")
-        print("11. Achievements")
-        print("12. Monthly Report")
-        print("13. Monthly Progress Graph")
-        print("14. Progress Graph")
-        print("15. Analytics Dashboard")
-        print("16. Exit")
+        print("6. Export Progress")
+        print("7. View Progress")
+        print("8. Weekly Report")
+        print("9. Learning History")
+        print("10. Set Goals")
+        print("11. View Goals")
+        print("12. Achievements")
+        print("13. Monthly Report")
+        print("14. Monthly Progress Graph")
+        print("15. Progress Graph")
+        print("16. Analytics Dashboard")
+        print("17. Exit")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -714,26 +752,28 @@ def main():
         elif choice == "5":
             search_progress()
         elif choice == "6":
-            view_progress()
+            export_progress()
         elif choice == "7":
-            weekly_report()
+            view_progress()
         elif choice == "8":
-            learning_history()
+            weekly_report()
         elif choice == "9":
-            set_goals()
+            learning_history()
         elif choice == "10":
-            view_goals()
+            set_goals()
         elif choice == "11":
-            achievements()
+            view_goals()
         elif choice == "12":
-            monthly_report()
+            achievements()
         elif choice == "13":
-            monthly_progress_graph()
+            monthly_report()
         elif choice == "14":
-            progress_graph()
+            monthly_progress_graph()
         elif choice == "15":
-            analytics_dashboard()
+            progress_graph()
         elif choice == "16":
+            analytics_dashboard()
+        elif choice == "17":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:

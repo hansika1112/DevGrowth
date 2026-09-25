@@ -1,10 +1,10 @@
 {
     "developer": "Hansika Gehlot",
-    "current_streak": 1,
-    "total_days": 2,
+    "current_streak": 2,
+    "total_days": 3,
     "coding": {
-        "problems_solved": 4,
-        "hours": 4.5
+        "problems_solved": 7,
+        "hours": 6.5
     },
     "learning": {
         "python": 0,
@@ -29,8 +29,14 @@
         "2026-09-25": {
             "problems": 2,
             "hours": 2.0,
-            "topic": "2",
+            "topic": "python",
             "learning": "Practiced Python"
+        },
+        "2026-09-26": {
+            "problems": 3,
+            "hours": 2.0,
+            "topic": "Python",
+            "learning": "Practiced Python functions"
         }
     }
 }

@@ -44,10 +44,33 @@ def add_progress():
 
     print("\n🌱 DevGrowth - Add Today's Progress")
 
-    problems = int(input("Coding problems solved today: "))
-    hours = float(input("Hours spent coding: "))
-    topic = input("Topic studied today: ")
-    learning = input("What did you learn today: ")
+    try:
+        problems = int(input("Coding problems solved today: "))
+
+        if problems < 0:
+            print("❌ Problems cannot be negative.")
+            return
+
+        hours = float(input("Hours spent coding: "))
+
+        if hours < 0:
+            print("❌ Coding hours cannot be negative.")
+            return
+
+    except ValueError:
+        print("❌ Please enter valid numbers.")
+        return
+
+    topic = input("Topic studied today: ").strip()
+    learning = input("What did you learn today: ").strip()
+
+    if not topic:
+        print("❌ Topic cannot be empty.")
+        return
+
+    if not learning:
+        print("❌ Learning description cannot be empty.")
+        return
 
     today = str(date.today())
 
@@ -80,6 +103,8 @@ def add_progress():
     print(f"⏱️ Coding Hours: {hours}")
     print(f"📚 Topic: {topic}")
     print(f"🧠 Learning: {learning}")
+
+
 def add_custom_progress():
     data = load_data()
 
@@ -93,10 +118,35 @@ def add_custom_progress():
         print("❌ Invalid date format. Use YYYY-MM-DD.")
         return
 
-    problems = int(input("Coding problems solved: "))
-    hours = float(input("Hours spent coding: "))
-    topic = input("Topic studied: ")
-    learning = input("What did you learn?: ")
+    try:
+        problems = int(input("Coding problems solved: "))
+
+        if problems < 0:
+            print("❌ Problems cannot be negative.")
+            return
+
+        hours = float(input("Hours spent coding: "))
+
+        if hours < 0:
+            print("❌ Coding hours cannot be negative.")
+            return
+
+    except ValueError:
+        print("❌ Please enter valid numbers.")
+        return
+
+    topic = input("Topic studied: ").strip()
+    learning = input("What did you learn?: ").strip()
+
+    if not topic:
+        print("❌ Topic cannot be empty.")
+        return
+
+    if not learning:
+        print("❌ Learning description cannot be empty.")
+        return
+
+    data.setdefault("daily_progress", {})
 
     data["daily_progress"][selected_date] = {
         "problems": problems,
@@ -126,8 +176,8 @@ def add_custom_progress():
     print(f"📚 Topic: {topic}")
     print(f"🧠 Learning: {learning}")
 
-def edit_progress():
 
+def edit_progress():
     data = load_data()
 
     daily_progress = data.get("daily_progress", {})
@@ -739,6 +789,7 @@ def main():
         print("15. Progress Graph")
         print("16. Analytics Dashboard")
         print("17. Exit")
+
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -778,6 +829,7 @@ def main():
             break
         else:
             print("❌ Invalid choice.")
+
 
 if __name__ == "__main__":
     main()

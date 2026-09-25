@@ -126,6 +126,85 @@ def weekly_report():
     print(f"📈 Average Problems/Day: {average_problems:.1f}")
     print(f"⏰ Average Coding Hours/Day: {average_hours:.1f}")
 
+def monthly_report():
+    data = load_data()
+
+    daily_progress = data.get("daily_progress", {})
+
+    today = date.today()
+    current_month = today.month
+    current_year = today.year
+
+    total_problems = 0
+    total_hours = 0
+    active_days = 0
+
+    for day, progress in daily_progress.items():
+        progress_date = date.fromisoformat(day)
+
+        if progress_date.month == current_month and progress_date.year == current_year:
+            total_problems += progress["problems"]
+            total_hours += progress["hours"]
+            active_days += 1
+
+    current_streak = calculate_streak(daily_progress)
+
+    if active_days > 0:
+        average_problems = total_problems / active_days
+        average_hours = total_hours / active_days
+    else:
+        average_problems = 0
+        average_hours = 0
+
+    print("\n📅 Monthly Progress Report")
+    print("=========================")
+    print(f"🗓️ Month: {today.strftime('%B %Y')}")
+    print(f"🧠 Total Problems: {total_problems}")
+    print(f"⏱️ Total Coding Hours: {total_hours:.1f}")
+    print(f"📅 Active Days: {active_days}")
+    print(f"🔥 Current Streak: {current_streak}")
+    print(f"📈 Average Problems/Day: {average_problems:.1f}")
+    print(f"⏰ Average Coding Hours/Day: {average_hours:.1f}")
+
+def monthly_progress_graph():
+    data = load_data()
+
+    daily_progress = data.get("daily_progress", {})
+
+    today = date.today()
+    current_month = today.month
+    current_year = today.year
+
+    dates = []
+    problems = []
+    hours = []
+
+    for day, progress in sorted(daily_progress.items()):
+        progress_date = date.fromisoformat(day)
+
+        if progress_date.month == current_month and progress_date.year == current_year:
+            dates.append(progress_date.strftime("%d %b"))
+            problems.append(progress["problems"])
+            hours.append(progress["hours"])
+
+    if not dates:
+        print("\n❌ No progress data available for this month.")
+        return
+
+    plt.figure(figsize=(10, 5))
+
+    plt.plot(dates, problems, marker="o", label="Problems Solved")
+    plt.plot(dates, hours, marker="o", label="Coding Hours")
+
+    plt.title(f"Monthly Progress - {today.strftime('%B %Y')}")
+    plt.xlabel("Date")
+    plt.ylabel("Progress")
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.tight_layout()
+
+    plt.show()
+
 
 def learning_history():
     data = load_data()
@@ -380,8 +459,10 @@ def main():
         print("5. Set Goals")
         print("6. View Goals")
         print("7. Achievements")
-        print("8. Progress Graph")
-        print("9. Exit")
+        print("8. Monthly Report")
+        print("9. Monthly Progress Graph")
+        print("10. Progress Graph")
+        print("11. Exit")
 
         choice = input("Choose an option: ")
 
@@ -400,8 +481,12 @@ def main():
         elif choice == "7":
             achievements()
         elif choice == "8":
-            progress_graph()
+            monthly_report()
         elif choice == "9":
+            monthly_progress_graph()
+        elif choice == "10":
+            progress_graph()
+        elif choice == "11":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:

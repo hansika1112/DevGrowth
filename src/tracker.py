@@ -1,5 +1,6 @@
 import json
 import csv
+import random
 import matplotlib.pyplot as plt
 from datetime import date, timedelta
 
@@ -836,6 +837,25 @@ def analytics_dashboard():
     print(f"📖 Topic: {most_studied_topic}")
     print(f"🔢 Study Sessions: {topic_sessions}")
 
+def daily_motivation():
+    messages = [
+        "Small progress every day leads to big results.",
+        "Consistency is the key to becoming a better developer.",
+        "Every problem you solve makes you stronger.",
+        "Keep coding, keep learning, keep growing.",
+        "Your future self will thank you for today's effort.",
+        "Don't aim for perfect. Aim for progress.",
+        "One step closer to your coding goals.",
+        "Practice today, confidence tomorrow.",
+        "Great developers are built through consistent practice.",
+        "Keep going. Your hard work will pay off."
+    ]
+
+    print("\n🌱 Daily Motivation")
+    print("===================")
+    print(f"💡 {random.choice(messages)}")
+    print("\n💻 Keep coding. Keep growing! 🚀")
+
 def main():
     while True:
         print("1. Add Today's Progress")
@@ -854,6 +874,7 @@ def main():
         print("14. Monthly Progress Graph")
         print("15. Progress Graph")
         print("16. Analytics Dashboard")
+        print("18. Daily Motivation")
         print("17. Exit")
 
         choice = input("Choose an option: ")
@@ -890,6 +911,8 @@ def main():
             progress_graph()
         elif choice == "16":
             analytics_dashboard()
+        elif choice == "18":
+            daily_motivation()
         elif choice == "17":
             print("\n🚀 Keep learning. Keep growing!")
             break

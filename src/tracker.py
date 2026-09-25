@@ -467,6 +467,32 @@ def achievements():
         print("   Maintain a 30-day streak")
         print(f"   🔒 {30 - current_streak} more streak days needed")
 
+def analytics_dashboard():
+    data = load_data()
+
+    coding = data.get("coding", {})
+    daily_progress = data.get("daily_progress", {})
+
+    total_problems = coding.get("problems_solved", 0)
+    total_hours = coding.get("hours", 0)
+    active_days = len(daily_progress)
+    current_streak = calculate_streak(daily_progress)
+
+    if active_days > 0:
+        average_problems = total_problems / active_days
+        average_hours = total_hours / active_days
+    else:
+        average_problems = 0
+        average_hours = 0
+
+    print("\n📊 DevGrowth Analytics Dashboard")
+    print("===============================")
+    print(f"💻 Total Problems Solved: {total_problems}")
+    print(f"⏱️ Total Coding Hours: {total_hours}")
+    print(f"📅 Active Days: {active_days}")
+    print(f"🔥 Current Streak: {current_streak}")
+    print(f"📈 Average Problems/Day: {average_problems:.1f}")
+    print(f"⏰ Average Coding Hours/Day: {average_hours:.1f}")
 
 def main():
     while True:
@@ -480,7 +506,8 @@ def main():
         print("8. Monthly Report")
         print("9. Monthly Progress Graph")
         print("10. Progress Graph")
-        print("11. Exit")
+        print("11. Analytics Dashboard")
+        print("12. Exit")
 
         choice = input("Choose an option: ")
 
@@ -505,6 +532,8 @@ def main():
         elif choice == "10":
             progress_graph()
         elif choice == "11":
+            analytics_dashboard()
+        elif choice == "12":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:

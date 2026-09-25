@@ -126,6 +126,7 @@ def add_custom_progress():
     print(f"🧠 Learning: {learning}")
 
 def edit_progress():
+
     data = load_data()
 
     daily_progress = data.get("daily_progress", {})
@@ -173,6 +174,59 @@ def edit_progress():
     save_data(data)
 
     print("\n✅ Progress updated successfully!")
+
+def delete_progress():
+    data = load_data()
+
+    daily_progress = data.get("daily_progress", {})
+
+    if not daily_progress:
+        print("\n❌ No progress data available.")
+        return
+
+    selected_date = input("\nEnter date to delete (YYYY-MM-DD): ")
+
+    if selected_date not in daily_progress:
+        print("❌ No progress found for this date.")
+        return
+
+    progress = daily_progress[selected_date]
+
+    print("\nProgress to be deleted:")
+    print(f"💻 Problems: {progress['problems']}")
+    print(f"⏱️ Hours: {progress['hours']}")
+    print(f"📚 Topic: {progress['topic']}")
+    print(f"🧠 Learning: {progress['learning']}")
+
+    confirmation = input("\nAre you sure you want to delete this progress? (yes/no): ")
+
+    if confirmation.lower() != "yes":
+        print("❌ Delete cancelled.")
+        return
+
+    del daily_progress[selected_date]
+
+    total_problems = 0
+    total_hours = 0
+
+    for progress in daily_progress.values():
+        total_problems += progress["problems"]
+        total_hours += progress["hours"]
+
+    data["coding"]["problems_solved"] = total_problems
+    data["coding"]["hours"] = total_hours
+    data["total_days"] = len(daily_progress)
+    data["current_streak"] = calculate_streak(daily_progress)
+
+    save_data(data)
+
+    print("\n✅ Progress deleted successfully!")
+    print(f"📅 Deleted Date: {selected_date}")
+    print(f"💻 Total Problems: {total_problems}")
+    print(f"⏱️ Total Coding Hours: {total_hours}")
+    print(f"📅 Active Days: {len(daily_progress)}")
+    print(f"🔥 Current Streak: {data['current_streak']}")
+
 
 def view_progress():
     data = load_data()
@@ -592,17 +646,18 @@ def main():
         print("1. Add Today's Progress")
         print("2. Add Custom Date Progress")
         print("3. Edit Progress")
-        print("4. View Progress")
-        print("5. Weekly Report")
-        print("6. Learning History")
-        print("7. Set Goals")
-        print("8. View Goals")
-        print("9. Achievements")
-        print("10. Monthly Report")
-        print("11. Monthly Progress Graph")
-        print("12. Progress Graph")
-        print("13. Analytics Dashboard")
-        print("14. Exit")
+        print("4. Delete Progress")
+        print("5. View Progress")
+        print("6. Weekly Report")
+        print("7. Learning History")
+        print("8. Set Goals")
+        print("9. View Goals")
+        print("10. Achievements")
+        print("11. Monthly Report")
+        print("12. Monthly Progress Graph")
+        print("13. Progress Graph")
+        print("14. Analytics Dashboard")
+        print("15. Exit")
 
         choice = input("Choose an option: ")
 
@@ -613,31 +668,32 @@ def main():
         elif choice == "3":
             edit_progress()
         elif choice == "4":
-            view_progress()
+            delete_progress()
         elif choice == "5":
-            weekly_report()
+            view_progress()
         elif choice == "6":
-            learning_history()
+            weekly_report()
         elif choice == "7":
-            set_goals()
+            learning_history()
         elif choice == "8":
-            view_goals()
+            set_goals()
         elif choice == "9":
-            achievements()
+            view_goals()
         elif choice == "10":
-            monthly_report()
+            achievements()
         elif choice == "11":
-            monthly_progress_graph()
+            monthly_report()
         elif choice == "12":
-            progress_graph()
+            monthly_progress_graph()
         elif choice == "13":
-            analytics_dashboard()
+            progress_graph()
         elif choice == "14":
+            analytics_dashboard()
+        elif choice == "15":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:
             print("❌ Invalid choice.")
-
 
 if __name__ == "__main__":
     main()

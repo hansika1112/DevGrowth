@@ -35,8 +35,8 @@
         "2026-09-26": {
             "problems": 3,
             "hours": 2.0,
-            "topic": "Python",
-            "learning": "Practiced Python functions"
+            "topic": "python",
+            "learning": "Python functions"
         }
     }
 }

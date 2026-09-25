@@ -279,7 +279,6 @@ def delete_progress():
     print(f"🔥 Current Streak: {data['current_streak']}")
     
 
-
 def search_progress():
     data = load_data()
 
@@ -301,13 +300,17 @@ def search_progress():
     print("================")
 
     for selected_date, progress in sorted(daily_progress.items()):
-        topic = str(progress["topic"]).lower()
-        learning = str(progress["learning"]).lower()
+        topic = str(progress.get("topic", "")).lower()
+        learning = str(progress.get("learning", "")).lower()
+        problems = str(progress.get("problems", "")).lower()
+        hours = str(progress.get("hours", "")).lower()
 
         if (
             keyword in selected_date.lower()
             or keyword in topic
             or keyword in learning
+            or keyword in problems
+            or keyword in hours
         ):
             found = True
 

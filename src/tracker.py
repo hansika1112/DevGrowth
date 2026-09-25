@@ -226,6 +226,48 @@ def delete_progress():
     print(f"⏱️ Total Coding Hours: {total_hours}")
     print(f"📅 Active Days: {len(daily_progress)}")
     print(f"🔥 Current Streak: {data['current_streak']}")
+    
+
+
+def search_progress():
+    data = load_data()
+
+    daily_progress = data.get("daily_progress", {})
+
+    if not daily_progress:
+        print("\n❌ No progress data available.")
+        return
+
+    keyword = input("\n🔎 Enter keyword to search: ").strip().lower()
+
+    if not keyword:
+        print("❌ Search keyword cannot be empty.")
+        return
+
+    found = False
+
+    print("\n🔎 Search Results")
+    print("================")
+
+    for selected_date, progress in sorted(daily_progress.items()):
+        topic = str(progress["topic"]).lower()
+        learning = str(progress["learning"]).lower()
+
+        if (
+            keyword in selected_date.lower()
+            or keyword in topic
+            or keyword in learning
+        ):
+            found = True
+
+            print(f"\n📅 Date: {selected_date}")
+            print(f"💻 Problems: {progress['problems']}")
+            print(f"⏱️ Hours: {progress['hours']}")
+            print(f"📚 Topic: {progress['topic']}")
+            print(f"🧠 Learning: {progress['learning']}")
+
+    if not found:
+        print(f"\n❌ No progress found for '{keyword}'.")
 
 
 def view_progress():
@@ -647,18 +689,18 @@ def main():
         print("2. Add Custom Date Progress")
         print("3. Edit Progress")
         print("4. Delete Progress")
-        print("5. View Progress")
-        print("6. Weekly Report")
-        print("7. Learning History")
-        print("8. Set Goals")
-        print("9. View Goals")
-        print("10. Achievements")
-        print("11. Monthly Report")
-        print("12. Monthly Progress Graph")
-        print("13. Progress Graph")
-        print("14. Analytics Dashboard")
-        print("15. Exit")
-
+        print("5. Search Progress")
+        print("6. View Progress")
+        print("7. Weekly Report")
+        print("8. Learning History")
+        print("9. Set Goals")
+        print("10. View Goals")
+        print("11. Achievements")
+        print("12. Monthly Report")
+        print("13. Monthly Progress Graph")
+        print("14. Progress Graph")
+        print("15. Analytics Dashboard")
+        print("16. Exit")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -670,26 +712,28 @@ def main():
         elif choice == "4":
             delete_progress()
         elif choice == "5":
-            view_progress()
+            search_progress()
         elif choice == "6":
-            weekly_report()
+            view_progress()
         elif choice == "7":
-            learning_history()
+            weekly_report()
         elif choice == "8":
-            set_goals()
+            learning_history()
         elif choice == "9":
-            view_goals()
+            set_goals()
         elif choice == "10":
-            achievements()
+            view_goals()
         elif choice == "11":
-            monthly_report()
+            achievements()
         elif choice == "12":
-            monthly_progress_graph()
+            monthly_report()
         elif choice == "13":
-            progress_graph()
+            monthly_progress_graph()
         elif choice == "14":
-            analytics_dashboard()
+            progress_graph()
         elif choice == "15":
+            analytics_dashboard()
+        elif choice == "16":
             print("\n🚀 Keep learning. Keep growing!")
             break
         else:

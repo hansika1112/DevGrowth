@@ -176,7 +176,6 @@ def add_custom_progress():
     print(f"📚 Topic: {topic}")
     print(f"🧠 Learning: {learning}")
 
-
 def edit_progress():
     data = load_data()
 
@@ -198,10 +197,33 @@ def edit_progress():
     print(f"📚 Topic: {daily_progress[selected_date]['topic']}")
     print(f"🧠 Learning: {daily_progress[selected_date]['learning']}")
 
-    problems = int(input("\nCoding problems solved: "))
-    hours = float(input("Hours spent coding: "))
-    topic = input("Topic studied: ")
-    learning = input("What did you learn?: ")
+    try:
+        problems = int(input("\nCoding problems solved: "))
+
+        if problems < 0:
+            print("❌ Problems cannot be negative.")
+            return
+
+        hours = float(input("Hours spent coding: "))
+
+        if hours < 0:
+            print("❌ Coding hours cannot be negative.")
+            return
+
+    except ValueError:
+        print("❌ Please enter valid numbers.")
+        return
+
+    topic = input("Topic studied: ").strip()
+    learning = input("What did you learn?: ").strip()
+
+    if not topic:
+        print("❌ Topic cannot be empty.")
+        return
+
+    if not learning:
+        print("❌ Learning description cannot be empty.")
+        return
 
     daily_progress[selected_date] = {
         "problems": problems,

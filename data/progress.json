@@ -3,8 +3,8 @@
     "current_streak": 2,
     "total_days": 3,
     "coding": {
-        "problems_solved": 7,
-        "hours": 6.5
+        "problems_solved": 9,
+        "hours": 7.5
     },
     "learning": {
         "python": 0,
@@ -27,10 +27,10 @@
             "learning": "Learned Python functions and file handling"
         },
         "2026-09-25": {
-            "problems": 2,
-            "hours": 2.0,
-            "topic": "python",
-            "learning": "Practiced Python"
+            "problems": 4,
+            "hours": 3.0,
+            "topic": "Python Functions",
+            "learning": "Practiced advanced Python functions"
         },
         "2026-09-26": {
             "problems": 3,

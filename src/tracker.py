@@ -250,7 +250,11 @@ def set_goals():
     save_data(data)
 
     print("\n✅ Goals saved successfully!")
-
+    
+def progress_bar(percentage, length=20):
+    filled = int(length * percentage / 100)
+    empty = length - filled
+    return "█" * filled + "░" * empty
 
 def view_goals():
     data = load_data()
@@ -315,13 +319,19 @@ def view_goals():
     print(f"💻 Problems: {today_data['problems']} / {goals['daily_problems']}")
     print(f"⏱️ Hours: {today_data['hours']} / {goals['daily_hours']}")
     print(f"📈 Problems Progress: {daily_problem_percent:.0f}%")
+    print(f"   {progress_bar(daily_problem_percent)}")
+
     print(f"📈 Hours Progress: {daily_hours_percent:.0f}%")
+    print(f"   {progress_bar(daily_hours_percent)}")
 
     print("\n📊 Weekly Progress")
     print(f"💻 Problems: {weekly_problems} / {goals['weekly_problems']}")
     print(f"⏱️ Hours: {weekly_hours} / {goals['weekly_hours']}")
     print(f"📈 Problems Progress: {weekly_problem_percent:.0f}%")
+    print(f"   {progress_bar(weekly_problem_percent)}")
+
     print(f"📈 Hours Progress: {weekly_hours_percent:.0f}%")
+    print(f"   {progress_bar(weekly_hours_percent)}")
 
     if daily_problem_percent >= 100 and daily_hours_percent >= 100:
         print("\n🔥 Daily Goal Completed!")
